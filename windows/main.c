@@ -38,7 +38,7 @@ int main()
         "16H00-16H30",
         "16H30-17H00"};
 
-    // On compte les spécialités
+    // On compte les specialites
     if (fdatSpe != NULL)
     {
         while ((c = fgetc(fdatSpe)) != EOF)
@@ -47,13 +47,13 @@ int main()
                 cpSpe++;
         }
 
-        // On revient au début du fichier
+        // On revient au debut du fichier
         rewind(fdatSpe);
 
         // Initialisation dynamique de la taille du tableau
         tabSpe = (char **)malloc(cpSpe * sizeof(char *));
         tabNomemclature = (char **)malloc(cpSpe * sizeof(char *));
-        // Initialisation de la taille des chaînes contenues dans les tableaux
+        // Initialisation de la taille des chaines contenues dans les tableaux
         for (i = 0; i < cpSpe; i++)
         {
             tabSpe[i] = (char *)malloc(21 * sizeof(char));
@@ -71,8 +71,8 @@ int main()
     else
     {
         fclose(fdatSpe);
-        printf("Erreur lecture des spécialités\n");
-        system("echo \"Le programme va s'arrêter...\" && read a");
+        printf("Erreur lecture des specialites\n");
+        system("pause");
         return 0;
     }
     
@@ -81,8 +81,8 @@ int main()
     // Lecture Medecins
     if (lectureMedecins(&firstM, &currentM, &interM, &lastM, &cpM))
     {
-        printf("Erreur lecture des médecins\n");
-        system("echo \"Le programme va s'arrêter...\" && read a");
+        printf("Erreur lecture des medecins\n");
+        system("pause");
         return 0;
     }
     // Lecture des consultations
@@ -103,12 +103,12 @@ int main()
     if (lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP))
     {
         printf("Erreur lecture des patients\n");
-        system("echo \"Le programme va s'arrêter...\" && read a");
+        system("pause");
         return 0;
     }
 
     // Menu interactif
-    printf("\e[1;1H\e[2J");
+    system("cls");
     while (1)
     {
         switch (menuPrincipal())
@@ -121,8 +121,8 @@ int main()
                 {
                 case 1:
                     afficherListeMed(firstM, cpM);
-                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
-                    printf("\e[1;1H\e[2J");
+                    system("pause");
+                    system("cls");
                     break;
                 case 2:
                     ajouterMed(&currentM, &firstM, &lastM, &cpM, tabSpe, tabNomemclature, cpSpe);
@@ -132,21 +132,21 @@ int main()
                     break;
                 case 4:
                     rechercherMed(firstM, &currentM, cpSpe, tabSpe);
-                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
-                    printf("\e[1;1H\e[2J");
+                    system("pause");
+                    system("cls");
                     break;
                 case 5:
                     afficherHoraire(firstM, currentM);
-                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
-                    printf("\e[1;1H\e[2J");
+                    system("pause");
+                    system("cls");
                     break;
                 case 6:
                     if (redemarre)
                         ajouterSpecialite(cpSpe, &redemarre, tabSpe, tabNomemclature);
                     else
                     {
-                        printf("\e[1;1H\e[2J");
-                        printf("Un redémarrange est nécessaire pour l'utilisation de cette fonctionnalité\n");
+                        system("cls");
+                        printf("Un redemarrange est necessaire pour l'utilisation de cette fonctionnalite\n");
                     }
 
                     break;
@@ -154,7 +154,7 @@ int main()
                     exitMenu = 1;
                     break;
                 default:
-                    printf("Mauvais numéro sélectionné !\n");
+                    printf("Mauvais numero selectionne !\n");
                     break;
                 }
             }
@@ -168,8 +168,8 @@ int main()
                 {
                 case 1:
                     afficherListePat(firstP, cpP);
-                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
-                    printf("\e[1;1H\e[2J");
+                    system("pause");
+                    system("cls");
                     break;
                 case 2:
                     ajouterPat(&currentP, &firstP, &lastP, &cpP);
@@ -179,8 +179,8 @@ int main()
                     break;
                 case 4:
                     rechercherPat(firstP, &currentP);
-                    system("echo \"Appuyer sur une touche pour continuer...\" && read a");
-                    printf("\e[1;1H\e[2J");
+                    system("pause");
+                    system("cls");
                     break;
                 case 5:
                     ajouterCons(firstP, &currentP, firstM, &currentM, cpSpe, tabSpe);
@@ -192,7 +192,7 @@ int main()
                     exitMenu = 1;
                     break;
                 default:
-                    printf("Mauvais numéro sélectionné !\n");
+                    printf("Mauvais numero selectionne !\n");
                     break;
                 }
             }
@@ -205,7 +205,7 @@ int main()
             sauvegarde(firstM, firstP);
             break;
         case 5:
-            printf("Voulez-vous sauvergdez les changements effectués ? [o/n] : ");
+            printf("Voulez-vous sauvergdez les changements effectues ? [o/n] : ");
             choixSave = getc(stdin);
             printf("\n");
 
@@ -215,7 +215,7 @@ int main()
             return 0;
 
         default:
-            printf("Mauvais numéro sélectionné !\n");
+            printf("Mauvais numero selectionne !\n");
             break;
         }
     }
