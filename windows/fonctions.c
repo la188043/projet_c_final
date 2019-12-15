@@ -1018,7 +1018,7 @@ void reinitialisationRDV(Medecin *first)
     char choix;
     Medecin *current;
 
-    printf("etes-vous sûr de vouloir reinitialisation l'entierete des consultation ? [o/n] : ");
+    printf("etes-vous sur de vouloir reinitialisation l'entierete des consultation ? [o/n] : ");
     lireChar(&choix);
 
     if (choix == 'O' || choix == 'o')
@@ -1079,7 +1079,7 @@ void ajouterSpecialite(int totAct, int *boolean, char **specs, char **nomenclatu
         }
         else
         {
-            printf("Specialite deja presente (doublon sur le code ou le nom");
+            printf("Specialite deja presente (doublon sur le code ou le nom)\n");
             *boolean = 1;
         }
 
@@ -1090,7 +1090,8 @@ void ajouterSpecialite(int totAct, int *boolean, char **specs, char **nomenclatu
     {
         *boolean = 1;
         fclose(file);
-        system("echo -e \"Ajout impossible de la specialite\\n Appuyer sur une touche pour continuer...\" && read a");
+        printf("Ajout impossible de la specialite");
+        system("pause");
         return;
     }
     

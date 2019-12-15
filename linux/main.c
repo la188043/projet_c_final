@@ -146,7 +146,7 @@ int main()
                     else
                     {
                         printf("\e[1;1H\e[2J");
-                        printf("Un redémarrange est nécessaire pour l'utilisation de cette fonctionnalité\n");
+                        printf("Un redémarrage est nécessaire pour l'utilisation de cette fonctionnalité\n");
                     }
 
                     break;

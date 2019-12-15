@@ -1,4 +1,4 @@
-Si le main.exe s'exécute et se ferme presque instantanément ou n'affiche rien après quelques seconde :
+Si le main.exe s'exécute et se ferme presque instantanément ou n'affiche rien après quelques secondes :
 ******************************************************************************************************
 
 1. Clic droit sur "main.exe" --> propriétés.

@@ -146,7 +146,7 @@ int main()
                     else
                     {
                         system("cls");
-                        printf("Un redemarrange est necessaire pour l'utilisation de cette fonctionnalite\n");
+                        printf("Un redemarrage est necessaire pour l'utilisation de cette fonctionnalite\n");
                     }
 
                     break;

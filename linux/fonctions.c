@@ -1079,7 +1079,7 @@ void ajouterSpecialite(int totAct, int *boolean, char **specs, char **nomenclatu
         }
         else
         {
-            printf("Spécialité déjà présente (doublon sur le code ou le nom");
+            printf("Spécialité déjà présente (doublon sur le code ou le nom)\n");
             *boolean = 1;
         }
 
