@@ -200,6 +200,7 @@ void ajouterPat(Patient **current, Patient **first, Patient **last, int *nb)
     {
         printf("\nSexe du patient (M/F) : ");
         lireChar(&new->sexe);
+        new->sexe = toupper(new->sexe);
 
         printf("\nNuméro de téléphone : ");
         lire(new->numTel, 13);
@@ -301,7 +302,7 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
     printf("\n");
     rechercherMed(firstM, &currentM, nbSpec, specs);
 
-    if (currentP != NULL)
+    if (currentP != NULL && currentM != NULL)
     {
         // Affichage du lundi au samedi
         for (i = 1; i <= 6; i++)
@@ -310,13 +311,13 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
         printf(" 0 - Annuler\n : ");
         choix = lireInt(&choix, 1);
 
-        if (choix != 0) // un jour a été choisi
+        if (choix != 0) 
         {
             printf("\e[1;1H\e[2J");
             printf("\n%-8s\n********\n", jours[choix - 1]);
 
-            printf("\n ID   Heure         Patient\n\n");
-            for (j = 1; j <= 16; j++) // afficher le planning du jour choisi
+            printf("\n      Heure         Patient\n\n");
+            for (j = 1; j <= 16; j++) 
             {
                 printf(" %2d - %-11s   ", j, heuresHoraire[j - 1]);
                 printf("%-20s  %c\n", currentM->cons[choix][j].nomPat, currentM->cons[choix][j].lettrePrenPat);
@@ -325,31 +326,31 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
             printf("\n: ");
             choixPlage = lireInt(&choixPlage, 2);
 
-            if (choixPlage != 0) // une case horaire a été choisie
+            if (choixPlage != 0) 
             {
                 // Gestion des rendez-vous :
-                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "  /                 ") != 0) // si case horaire déjà occupée
+                if (strcmp(currentM->cons[choix][choixPlage].nomPat, "  /                 ") != 0) 
                 {
                     // Demande de remplacement :
-                    printf("\nATTENTION : Un rendez-vous est déjà prévu. Voulez-vous le supprimer ?\n");
-                    printf(" 1 - Oui\n 2 - Non\nReponse : ");
+                    printf("\nVoulez-vous le remplacer ?\n");
+                    printf(" 1 - Oui\n 2 - Non\n: ");
                     reponse = lireInt(&reponse, 1);
-                    if (reponse == 1) // forcer le remplacement
+                    if (reponse == 1) 
                     {
                         strcpy(currentM->cons[choix][choixPlage].nomPat, currentP->nom);
                         currentM->cons[choix][choixPlage].lettrePrenPat = currentP->prenom[0];
                         printf("\e[1;1H\e[2J");
-                        printf("\nLe rendez-vous a été mis à jour\n");
+                        printf("\nLe remplacement à été effectué\n");
                     }
-                    else // ignorer le remplacement
+                    else 
                     {
                         printf("\e[1;1H\e[2J");
                         printf("\nOperation annulée\n");
                     }
                 }
-                else // si case horaire vide
+                else 
                 {
-                    // Fixer le rendez-vous :
+                    // Attribuer le rendez-vous :
                     strcpy(currentM->cons[choix][choixPlage].nomPat, currentP->nom);
                     currentM->cons[choix][choixPlage].lettrePrenPat = currentP->prenom[0];
                 }
@@ -770,7 +771,7 @@ void supprimerCons(Medecin *first, Medecin **curentM, int nbSpec, char **specs)
             printf("\e[1;1H\e[2J");
             printf("\n%-8s\n********\n", jours[choix - 1]);
 
-            printf("\n ID   Heure         Patient\n\n");
+            printf("\n      Heure         Patient\n\n");
             for (j = 1; j <= 16; j++) 
             {
                 printf(" %2d - %-11s   ", j, heuresHoraire[j - 1]);
@@ -902,7 +903,10 @@ void rechercherMed(Medecin *first, Medecin **current, int nbSpec, char **specs)
             *current = (*current)->next;
     }
     else
+    {
         printf("Personne non trouvée\n");
+        *current == NULL;
+    }
 }
 
 void rechercherPat(Patient *first, Patient **current)
@@ -1009,6 +1013,7 @@ void rechercherPat(Patient *first, Patient **current)
     else
     {
         printf("Personne non trouvée\n");
+        *current == NULL;
     }
 }
 
@@ -1018,7 +1023,7 @@ void reinitialisationRDV(Medecin *first)
     char choix;
     Medecin *current;
 
-    printf("Êtes-vous sûr de vouloir réinitialisation l'entièreté des consultation ? [o/n] : ");
+    printf("Êtes-vous sûr de vouloir réinitialiser l'entièreté des consultations ? [o/n] : ");
     lireChar(&choix);
 
     if (choix == 'O' || choix == 'o')
@@ -1140,7 +1145,7 @@ int menuPat()
 {
     int choix;
 
-    printf("\nPatient(s)\n"
+    printf("\nPatients\n"
            "**********\n"
            "1. Afficher la liste\n"
            "2. Ajouter\n"

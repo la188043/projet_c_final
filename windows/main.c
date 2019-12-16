@@ -16,27 +16,10 @@ int main()
     Patient *firstP, *currentP, *nextP, *lastP, *interP;
 
     int cpM = 0, cpP = 0, exitMenu = 0, i, j, med = 0;
-    int n = 1, heure;
+    int n = 1;
     int cpSpe = 0, c, redemarre = 1;
     char **tabSpe = NULL, **tabNomemclature = NULL;
     char choixSave = 'n';
-    char heuresHoraire[17][12] = {
-        "08H00-08H30",
-        "08H30-09H00",
-        "09H00-09H30",
-        "09H30-10H00",
-        "10H00-10H30",
-        "10H30-11H00",
-        "11H00-11H30",
-        "11H30-12H00",
-        "13H00-13H30",
-        "13H30-14H00",
-        "14H00-14H30",
-        "14H30-15H00",
-        "15H00-15H30",
-        "15H30-16H00",
-        "16H00-16H30",
-        "16H30-17H00"};
 
     // On compte les specialites
     if (fdatSpe != NULL)
@@ -86,18 +69,29 @@ int main()
         return 0;
     }
     // Lecture des consultations
-    for (currentM = firstM; currentM != NULL; currentM = currentM->next)
+    if (fdatC != NULL)
     {
-        for (i = 1; i <= 6; i++)
+        for (currentM = firstM; currentM != NULL; currentM = currentM->next)
         {
-            for (j = 1; j <= 16; j++)
+            for (i = 1; i <= 6; i++)
             {
-                fscanf(fdatC, "%2d", &heure);
-                fgets(currentM->cons[i][j].nomPat, 21, fdatC);
-                currentM->cons[i][j].lettrePrenPat = fgetc(fdatC);
+                for (j = 1; j <= 16; j++)
+                {
+                    fscanf(fdatC, "%*2d");
+                    fgets(currentM->cons[i][j].nomPat, 21, fdatC);
+                    currentM->cons[i][j].lettrePrenPat = fgetc(fdatC);
+                }
             }
         }
     }
+    else
+    {
+        fclose(fdatC);
+        printf("Erreur lecture des consultations\n");
+        system("pause");
+        return 0;       
+    }
+    
 
     // Lecture patients
     if (lecturePatients(&firstP, &currentP, &interP, &lastP, &cpP))
@@ -205,7 +199,7 @@ int main()
             sauvegarde(firstM, firstP);
             break;
         case 5:
-            printf("Voulez-vous sauvergdez les changements effectues ? [o/n] : ");
+            printf("Voulez-vous sauvegarder les changements effectues ? [o/n] : ");
             choixSave = getc(stdin);
             printf("\n");
 
