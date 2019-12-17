@@ -300,7 +300,8 @@ void ajouterCons(Patient *firstP, Patient **currentPat, Medecin *firstM, Medecin
 
     rechercherPat(firstP, &currentP);
     printf("\n");
-    rechercherMed(firstM, &currentM, nbSpec, specs);
+    if (currentP != NULL)
+        rechercherMed(firstM, &currentM, nbSpec, specs);
 
     if (currentP != NULL && currentM != NULL)
     {
